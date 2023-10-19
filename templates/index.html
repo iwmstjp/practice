@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block body%}
+    <h1>Blog</h1>
+    <ul>
+        <li>Monday</li>
+        <li>Tuesday</li>
+        {% for i in range(3)%}
+        <li>{{ i }} day</li>
+        {% endfor%}
+    </ul>
+{% endblock %}
