@@ -8,16 +8,6 @@ from (モジュール名) import (関数名)
 
 {% block "name of content" %}
 
-
-pip show <package-name>:パッケージの詳細
-pip list:一覧を表示
-pip install <package-name>:複数、version指定できる
-pip install --upgrade: update versions
-python -m pip install --upgrade pip:
-->pip install --upgrade pipでエラーが出た場合
-
-pip check:依存関係に問題ないか確認できる。
-
 *args
 hello("hiroki", "saito")
 # ('hiroki', 'saito') と表示されます
