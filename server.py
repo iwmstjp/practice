@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, request
 import requests
 
 url = "https://api.npoint.io/7f61d8933e17ba5e2424"
@@ -19,6 +19,12 @@ def about():
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
+
+@app.route("/form-entry", methods=['post'])
+def recieve_data():
+    print(request.form.get('name'))
+    return "Successfully sent your message"
+
 
 @app.route("/post/<int:index>")
 def post(index):
