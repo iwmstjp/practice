@@ -16,3 +16,10 @@ hello(name="hiroki", hometown="osaka")
 # {'name': 'hiroki', 'hometown': 'osaka'} と表示されます
 
 request.form.get('name') or ['name']
+
+<form method="POST" action="{{url_for('edit', book_id=book.id)}}">
+@app.route("/edit/<int:book_id>", methods=['get', 'post'])
+def edit(book_id):
+or
+{{url_for('delete', book_id=book.id)}}
+request.args.get('book_id')
