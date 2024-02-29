@@ -1,0 +1,46 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+
+
+    <h2 class="title">{{ post.title }}</h2>
+    <small>Posted at {{ post.created_data}}</small>
+    <p>{{ post.intro }}</p>
+    <p>{{ post.body }}</p>
+    <hr>
+    <a href="{% url 'frontpage'%}">Back</a>
+    <hr>
+    <h2 class="subtitle">Comments</h2>
+    {% for comment in post.comments.all %}
+    <article class="media">
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <strong>
+                        {{ comment.name }}
+                        <small>
+                            {{ comment.posted_date}}
+                        </small>
+                    </strong>
+                </p>
+            </div>
+        </div>
+    </article>
+    {% empty %}
+    <div class="notification">
+        <p>No comments</p>
+    </div>
+    {% endfor %}
+
+    <h2 class="subtitle">Add comment</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <div class="field">
+            <div class="control">
+                <button class="button is-danger">Submit</button>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
