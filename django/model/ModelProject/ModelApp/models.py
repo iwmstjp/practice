@@ -24,3 +24,5 @@ class Person(BaseMeta):
         index_together = [['first_name', 'last_name']]
         ordering = ['salary']
 
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
