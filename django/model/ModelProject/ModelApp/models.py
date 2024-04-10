@@ -26,3 +26,35 @@ class Person(BaseMeta):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+
+
+class Students(models.Model):
+    name = models.CharField(max_length=20)
+    age = models.IntegerField()
+    major = models.CharField(max_length=20)
+    school = models.ForeignKey(
+        'Schools', on_delete=models.PROTECT
+    )
+
+    class Meta:
+        db_table='students'
+
+    def __str__(self):
+        return f'{self.pk}, {self.name}, {self.age}'
+
+class Schools(models.Model):
+    name = models.CharField(max_length=20)
+    prefecture = models.ForeignKey(
+        'Prefectures', on_delete=models.PROTECT
+    )
+
+    class Meta:
+        db_table = 'schools'
+
+
+class Prefectures(models.Model):
+    name = models.CharField(max_length=20)
+
+    class Meta:
+        db_table = 'prefectures'
+
