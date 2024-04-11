@@ -61,4 +61,15 @@ def select_students():
 # print(Students.objects.filter(name__startswith="t").all())
 
 from django.db.models import Q
-print(Students.objects.filter(Q(name="taro") | Q(pk__gt=19)).all())
+# print(Students.objects.filter(Q(name="taro") | Q(pk__gt=19)).all())
+# print(Students.objects.values('name','school').all())
+# print(Students.objects.exclude(name='taro'))
+# print(Students.objects.filter(id__in=[5,9]))
+# print(Students.objects.filter(id__contains='1'))
+# st = Students.objects.order_by('name','-id')
+# for s in st:
+#     print(s)
+# print(Students.objects.order_by('name'))
+st = Students.objects.filter(school__name='east').exclude(prefecture__name='Tokyo')
+for s in st:
+    print(s, s.school.name, s.school.prefecture.name)
