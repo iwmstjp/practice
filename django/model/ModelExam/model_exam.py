@@ -6,52 +6,65 @@ setup()
 
 from ModelApp.models import Students, TestResults, Tests, Classes
 
-# class_names = ['Class' + c for c in 'ABCDEFGHIJ']
-# student_names = ['Student' + c for c in 'ABCDEFGHIJ']
-# test_names = ['math', 'english', 'language']
-#
-# inserted_tests = []
-# for test_name in test_names:
-#     test = Tests(
-#         name=test_name
-#     )
-#     test.save()
-#     inserted_tests.append(test)
-#
-# for class_name in class_names:
-#     insert_class = Classes(
-#         name=class_name
-#     )
-#     insert_class.save()
-#     for student_name in student_names:
-#         name = class_name + ' ' + student_name
-#         student = Students(
-#             name=name,
-#             class_id=insert_class,
-#             grade=1
-#         )
-#         student.save()
-#         for inserted_test in inserted_tests:
-#             test_result = TestResults(
-#                 student_id=student,
-#                 test_id=inserted_test,
-#                 score=randint(50,100)
-#             )
-#             test_result.save()
+def make_date():
+    class_names = ['Class' + c for c in 'ABCDEFGHIJ']
+    student_names = ['Student' + c for c in 'ABCDEFGHIJ']
+    test_names = ['math', 'english', 'language']
+
+    inserted_tests = []
+    for test_name in test_names:
+        test = Tests(
+            name=test_name
+        )
+        test.save()
+        inserted_tests.append(test)
+
+    for class_name in class_names:
+        insert_class = Classes(
+            name=class_name
+        )
+        insert_class.save()
+        for student_name in student_names:
+            name = class_name + ' ' + student_name
+            student = Students(
+                name=name,
+                class_fk=insert_class,
+                grade=1
+            )
+            student.save()
+            for inserted_test in inserted_tests:
+                test_result=TestResults(
+                    student=student,
+                    test=inserted_test,
+                    score=randint(50,100)
+                )
+                test_result.save()
 
 from django.db.models import Sum, Avg, Max, Min
+for summary in Classes.objects.values('name', 'students__testresults__test__name').annotate(
+    max_score=Max('students__testresults__score'),
+    min_score=Min('students__testresults__score'),
+    avg_score=Avg('students__testresults__score'),
+    sum_score=Sum('students__testresults__score')
+):
+    print(summary['name'],
+          summary['students__testresults__test__name'],
+          summary['max_score'],
+          summary['min_score'],
+          summary['avg_score'],
+          summary['sum_score']
+          )
 
-# for cs in Classes.objects.values('name', 'students__testresults__test_id').annotate(
-#   max_score=Max('students__testresults__score')
-# ):
-#     print(cs['name'], cs['max_score'])
-
-# for cs in Classes.objects.values('name', 'students__testresults__tests__name').annotate(
-#   max_score=Max('students__testresults__score')
-# ):
-
-# print(Classes.objects.values('name','students__testresults__test_id'))
-print(Students.objects.values('name', 'testresults__tests__name'))
-# print(Classes.objects.values('name', 'students__testresults__tests__name'))
-# print(Classes.objects.values('name', 'students__testresults__score'))
-
+for summary in Students.objects.values('class_fk__name', 'testresults__test__name' ).annotate(
+        max_score=Max('testresults__score'),
+        min_score=Min('testresults__score'),
+        avg_score=Avg('testresults__score'),
+        sum_score=Sum('testresults__score')
+):
+    print(summary['class_fk__name'],
+          summary['testresults__test__name'],
+          summary['max_score'],
+          summary['min_score'],
+          summary['avg_score'],
+          summary['sum_score']
+          )

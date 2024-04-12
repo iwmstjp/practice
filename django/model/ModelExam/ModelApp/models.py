@@ -9,23 +9,23 @@ class Tests(models.Model):
 
 
 class TestResults(models.Model):
-    student_id = models.ForeignKey(
+    score = models.IntegerField()
+    student = models.ForeignKey(
         'Students', on_delete=models.CASCADE
     )
-    test_id = models.ForeignKey(
+    test = models.ForeignKey(
         'Tests', on_delete=models.CASCADE
     )
-    score = models.IntegerField()
     class Meta:
-        db_table='testreults'
+        db_table='test_reults'
 
 
 class Students(models.Model):
-    class_id = models.ForeignKey(
-        'Classes', on_delete=models.CASCADE
-    )
     name = models.CharField(max_length=50)
     grade = models.IntegerField()
+    class_fk = models.ForeignKey(
+        'Classes', on_delete=models.CASCADE
+    )
     class Meta:
         db_table='students'
 
