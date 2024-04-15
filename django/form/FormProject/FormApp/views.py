@@ -22,3 +22,14 @@ def form_page(request):
             'form': form
         }
     )
+
+
+def form_post(request):
+    form = forms.PostModelForm()
+    if request.method =='POST':
+        form = forms.PostModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return render(
+        request, 'formapp/form_post.html', context={'form': form}
+    )

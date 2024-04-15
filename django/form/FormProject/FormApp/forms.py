@@ -1,5 +1,6 @@
 from django import forms
 from django.core import validators
+from .models import Post
 
 class UserInfo(forms.Form):
     name = forms.CharField(label='Na', max_length=10, min_length=5)
@@ -46,3 +47,13 @@ class UserInfo(forms.Form):
         verify_mail = cleaned_data['verify_mail']
         if mail != verify_mail:
             raise forms.ValidationError('Type same email address')
+
+
+class PostModelForm(forms.ModelForm):
+    memo = forms.CharField(
+        widget=forms.Textarea(attrs={'rows':6, 'cols':15})
+    )
+    class Meta:
+        model = Post
+        # fields = '__all__'
+        exclude = ["title"]
