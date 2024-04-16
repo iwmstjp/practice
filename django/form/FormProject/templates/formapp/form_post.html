@@ -10,7 +10,10 @@
 
     <form action="" method="POST">
         {% csrf_token%}
-        {{ form.as_p }}
+        {{ form.name.label }}{{ form.name }}
+        {% if form.name.errors %}
+        <div style="color:red">{{ form.name.errors.as_text }}</div>
+        {% endif %}
         <input type="submit" value="submit">
     </form>
 </body>

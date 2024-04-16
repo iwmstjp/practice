@@ -49,11 +49,34 @@ class UserInfo(forms.Form):
             raise forms.ValidationError('Type same email address')
 
 
-class PostModelForm(forms.ModelForm):
+class BaseForm(forms.ModelForm):
+    def save(self, *args, **kwargs):
+        print(f'Form: {self.__class__.__name__}')
+        return super(BaseForm, self).save(*args, **kwargs)
+
+
+class PostModelForm(BaseForm):
+    name = forms.CharField(label='Na')
+    title = forms.CharField(label='title')
     memo = forms.CharField(
+        label='memo',
         widget=forms.Textarea(attrs={'rows':6, 'cols':15})
     )
     class Meta:
         model = Post
-        # fields = '__all__'
-        exclude = ["title"]
+        fields = '__all__'
+        # exclude = ["title"]
+
+    def save(self, *args, **kwargs):
+        obj = super(PostModelForm, self).save(commit=False, *args, **kwargs)
+        obj.name = obj.name.upper()
+        print(type(obj))
+        print('save done')
+        obj.save()
+        return obj
+
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        if name == 'aa':
+            raise validators.ValidationError('Invalid name')
+        return name
