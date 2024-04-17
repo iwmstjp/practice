@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-
- {% include "formapp/form_template2.html" with as_ul=True %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ formset.as_p }}
+        <input type="submit" value="submit">
+    </form>
 </body>
 </html>

@@ -80,3 +80,20 @@ class PostModelForm(BaseForm):
         if name == 'aa':
             raise validators.ValidationError('Invalid name')
         return name
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+        if title == 'aa':
+            raise validators.ValidationError('Invalid title')
+        return title
+
+    def clean(self):
+        cleaned_data = super().clean()
+        title = cleaned_data.get('title')
+        is_exists = Post.objects.filter(title=title).first()
+        if is_exists:
+            raise validators.ValidationError('The title already exits')
+
+class FormSetPost(forms.Form):
+    title = forms.CharField(label='title')
+    memo = forms.CharField(label='memo')
