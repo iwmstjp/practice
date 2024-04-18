@@ -1,6 +1,6 @@
 from django import forms
 from django.core import validators
-from .models import Post
+from .models import Post, ModelSetPost
 
 class UserInfo(forms.Form):
     name = forms.CharField(label='Na', max_length=10, min_length=5)
@@ -97,3 +97,12 @@ class PostModelForm(BaseForm):
 class FormSetPost(forms.Form):
     title = forms.CharField(label='title')
     memo = forms.CharField(label='memo')
+
+
+class ModelFormSetPost(forms.ModelForm):
+    title = forms.CharField(label='title')
+    memo = forms.CharField(label='memo')
+
+    class Meta:
+        model = ModelSetPost
+        fields = '__all__'
