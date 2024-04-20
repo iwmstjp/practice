@@ -17,9 +17,15 @@ export default function Accordian() {
         else cpyMultiple.splice(findIndexOfCurrentId, 1)
         setMultiple(cpyMultiple);
     }
+    function reset(){
+        setEnableMultiSelection(!enalbieMultiSelection);
+        setSelected(null);
+        setMultiple([]);
+    }
+
     console.log(selected, multiple)
     return <div className="wrapper">
-        <button onClick={()=> setEnableMultiSelection(!enalbieMultiSelection)}>Enable Multi Selection</button>
+        <button onClick={()=> reset()}>Enable Multi Selection</button>
         <div className="accordian">
             {
                 data && data.length > 0 ?
@@ -30,6 +36,10 @@ export default function Accordian() {
                         <h3>{dataItem.question}</h3>
                         <span>+</span>
                     </div>
+                    {/* <div onClick={ () => handleMultiSelection(dataItem.id) } className="titile">
+                        <h3>{dataItem.question}</h3>
+                        <span>+</span>
+                    </div> */}
                     {
                         selected === dataItem.id 
                         || multiple.indexOf(dataItem.id) !== -1
