@@ -1,0 +1,54 @@
+.to-do-list{
+    font-family: Arial;
+    text-align: center;
+    margin: 80px auto;
+    width: 60%;
+}
+h1{
+    font-size: 4rem;
+}
+button{
+    font-size: 1.7rem;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+
+}
+.add-button{
+    background-color: hsl(160, 100%, 75%);
+}
+.add-button:hover{
+    background-color: hsl(160, 100%, 65%);
+}
+.done-button{
+    background-color: hsl(196, 100%, 75%);
+}
+.done-button:hover{
+    background-color: hsl(196, 100%, 65%);
+}
+input[type="text"]{
+    font-size: 1.6rem;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+ol{
+    padding: 0;
+}
+li{
+    font-size: 2rem;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+.done-button, .move-button{
+    padding: 8px 12px;
+    font-size: 1.4rem;
+    margin-left: 10px;
+}
+.text{
+    flex: 1;
+}
